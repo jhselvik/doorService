@@ -5,7 +5,9 @@ import (
 	"fmt"
 )
 
-
+var (
+	localPort = 6666
+)
 
 
 
@@ -16,7 +18,8 @@ func main() {
 	buff := make([]byte, 1024)
 
 	// bind to local port
-	addr, err := net.ResolveUDPAddr("udp", ":6666")
+	port :=fmt.Sprintf(":%d", localPort)
+	addr, err := net.ResolveUDPAddr("udp", port)
 	if err != nil {
 		fmt.Println("Error when creating local address:", err)
 	}
@@ -26,6 +29,8 @@ func main() {
 	if err != nil {
 		fmt.Println("Error when creating socket:", err)
 	}
+
+	fmt.Println("Listening to port:", localPort)
 
 	for {
 		// we do not need the length, remote Addr is going to be the BeagleBones address 
