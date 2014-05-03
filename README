@@ -1,0 +1,3 @@
+A pusher like service to communicate with our BeagleBones board.
+
+Uses UDP sockets
