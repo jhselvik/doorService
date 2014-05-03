@@ -1,24 +1,19 @@
 package main
 
 import (
-	"net"
 	"fmt"
+	"net"
 )
 
 var (
 	localPort = 6666
 )
 
-
-
-
-
-
 func main() {
 	buff := make([]byte, 1024)
 
 	// bind to local port
-	port :=fmt.Sprintf(":%d", localPort)
+	port := fmt.Sprintf(":%d", localPort)
 	addr, err := net.ResolveUDPAddr("udp", port)
 	if err != nil {
 		fmt.Println("Error when creating local address:", err)
@@ -33,7 +28,7 @@ func main() {
 	fmt.Println("Listening to port:", localPort)
 
 	for {
-		// we do not need the length, remote Addr is going to be the BeagleBones address 
+		// we do not need the length, remote Addr is going to be the BeagleBones address
 		rlen, remoteAddr, err := sock.ReadFromUDP(buff)
 		if err != nil {
 			fmt.Println("Error reading from socket:", err)
@@ -45,23 +40,3 @@ func main() {
 	}
 
 }
-
-
-// CLient code
-// serverAddr, err := net.ResolveUDPAddr("udp", "beaglebone.local:7527")
-// if err != nil {
-// 	fmt.Println("Could not create address:", err)
-// }
-
-// con, err := net.DialUDP("udp", nil, serverAddr)
-// if err != nil {
-// 	fmt.Println("Could not connect to UDP addresss:", err)
-// }
-// defer con.Close()
-
-// buf := []byte("hello")
-// _, err = con.Write(buf)
-// if err != nil {
-// 	fmt.Println("Could not write to connection:", err)
-// }
-
