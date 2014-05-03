@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net"
 )
@@ -8,6 +9,18 @@ import (
 var (
 	localPort = 6666
 )
+
+func sendMsg(socket *net.UDPConn, msg string) {
+	// MarshalIndent makes sure our JSON is pretty
+	jmsg, err := json.MarshalIndent(msg, "", "  ")
+	if err != nil {
+		fmt.Println("Could not marshal message:", err)
+	}
+
+	// But MarshalIndent doesn't come with a newline, so we do that ourselves.
+	jmsg = append(jmsg, "\n"...)
+
+}
 
 func main() {
 	buff := make([]byte, 1024)
